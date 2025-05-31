@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Graffiti Text Generator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik+Spray+Paint&family=Rubik+Moonrocks&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: #111;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 50px;
+    }
+
+    h1 {
+      font-family: 'Rubik Moonrocks', cursive;
+      font-size: 2.5em;
+      color: #fff;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 8px #ff00ff;
+    }
+
+    input {
+      padding: 10px;
+      font-size: 1.2em;
+      width: 300px;
+      border: none;
+      border-radius: 4px;
+      outline: none;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 1.1em;
+      background: #ff00ff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #cc00cc;
+    }
+
+    #graffitiOutput {
+      margin-top: 40px;
+      font-size: 3em;
+      font-family: 'Rubik Spray Paint', cursive;
+      color: #00ffcc;
+      text-shadow: 
+        2px 2px 0 #000, 
+        4px 4px 8px #ff00ff;
+      word-wrap: break-word;
+      text-align: center;
+      max-width: 90%;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Graffiti Generator</h1>
+  <input type="text" id="graffitiInput" placeholder="Type your tag here..." />
+  <button onclick="generateGraffiti()">Generate</button>
+
+  <div id="graffitiOutput"></div>
+
+  <script>
+    function generateGraffiti() {
+      const input = document.getElementById('graffitiInput').value;
+      const output = document.getElementById('graffitiOutput');
+      output.textContent = input || "💥"; // Default if blank
+    }
+  </script>
+
+</body>
+</html>
