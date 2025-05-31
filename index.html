@@ -2,51 +2,66 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Graffiti Text Generator</title>
-  <link href="https://fonts.googleapis.com/css2?family=Rubik+Spray+Paint&family=Rubik+Moonrocks&family=Freckle+Face&family=Henny+Penny&display=swap" rel="stylesheet">
+  <title>Graffiti Mural Generator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik+Spray+Paint&family=Freckle+Face&family=Henny+Penny&family=Rubik+Moonrocks&display=swap" rel="stylesheet">
   <style>
     body {
-      background: #111;
-      color: #fff;
+      margin: 0;
+      padding: 0;
+      background: #333;
       font-family: Arial, sans-serif;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 50px;
+    }
+
+    .wall {
+      background-image: url('https://i.imgur.com/tTq9p0F.jpg'); /* Brick wall texture */
+      background-size: cover;
+      background-position: center;
+      min-height: 100vh;
+      width: 100%;
+      padding: 50px 20px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     h1 {
       font-family: 'Rubik Moonrocks', cursive;
-      font-size: 2.5em;
-      color: #fff;
+      font-size: 3em;
+      color: white;
       margin-bottom: 20px;
-      text-shadow: 2px 2px 8px #ff00ff;
+      text-shadow: 3px 3px 10px #000;
     }
 
     .controls {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      margin-bottom: 30px;
     }
 
-    input[type="text"], select, input[type="color"] {
+    input[type="text"], select {
       padding: 10px;
-      font-size: 1.1em;
+      font-size: 1em;
+      border-radius: 5px;
       border: none;
-      border-radius: 4px;
-      outline: none;
+      margin: 5px;
+      width: 200px;
     }
 
     button {
       padding: 10px 20px;
-      font-size: 1.1em;
+      font-size: 1em;
       background: #ff00ff;
-      color: #fff;
+      color: white;
       border: none;
-      border-radius: 4px;
+      border-radius: 5px;
+      margin-top: 10px;
       cursor: pointer;
-      transition: background 0.3s;
     }
 
     button:hover {
@@ -54,12 +69,11 @@
     }
 
     #graffitiOutput {
-      margin-top: 40px;
-      font-size: 3em;
-      text-shadow: 2px 2px 0 #000, 4px 4px 8px #ff00ff;
-      word-wrap: break-word;
-      text-align: center;
+      font-size: 4em;
       max-width: 90%;
+      word-break: break-word;
+      margin-top: 40px;
+      transition: all 0.5s ease;
     }
 
     .RubikSprayPaint { font-family: 'Rubik Spray Paint', cursive; }
@@ -69,40 +83,55 @@
   </style>
 </head>
 <body>
+  <div class="wall">
+    <h1>Graffiti Mural Generator</h1>
 
-  <h1>Graffiti Generator</h1>
+    <div class="controls">
+      <input type="text" id="graffitiInput" placeholder="Enter your tag here..." />
+      <select id="fontSelect">
+        <option value="RubikSprayPaint">Rubik Spray Paint</option>
+        <option value="FreckleFace">Freckle Face</option>
+        <option value="HennyPenny">Henny Penny</option>
+        <option value="RubikMoonrocks">Rubik Moonrocks</option>
+      </select>
+      <br>
+      <button onclick="generateGraffiti()">Generate</button>
+    </div>
 
-  <div class="controls">
-    <input type="text" id="graffitiInput" placeholder="Type your tag here..." />
-
-    <label for="fontSelect">Font:</label>
-    <select id="fontSelect">
-      <option value="RubikSprayPaint">Rubik Spray Paint</option>
-      <option value="FreckleFace">Freckle Face</option>
-      <option value="HennyPenny">Henny Penny</option>
-      <option value="RubikMoonrocks">Rubik Moonrocks</option>
-    </select>
-
-    <label for="colorPicker">Color:</label>
-    <input type="color" id="colorPicker" value="#00ffcc" />
-
-    <button onclick="generateGraffiti()">Generate</button>
+    <div id="graffitiOutput" class="RubikSprayPaint">💥</div>
   </div>
 
-  <div id="graffitiOutput">💥</div>
-
   <script>
+    function getRandomColor() {
+      const colors = ['#00ffcc', '#ff00ff', '#ffcc00', '#ff4444', '#00ff44', '#33ccff', '#ffffff'];
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
+
+    function getRandomShadow() {
+      const shadows = [
+        '2px 2px 5px #000',
+        '4px 4px 15px #ff00ff',
+        '-2px 2px 10px #00ffff',
+        '1px -1px 6px #000',
+        '0px 0px 20px #ff0',
+        '3px 3px 12px #000'
+      ];
+      return shadows[Math.floor(Math.random() * shadows.length)];
+    }
+
     function generateGraffiti() {
       const inputText = document.getElementById('graffitiInput').value || "💥";
       const selectedFont = document.getElementById('fontSelect').value;
-      const selectedColor = document.getElementById('colorPicker').value;
+      const output = document.getElementById('graffitiOutput');
 
-      const outputDiv = document.getElementById('graffitiOutput');
-      outputDiv.textContent = inputText;
-      outputDiv.className = selectedFont;
-      outputDiv.style.color = selectedColor;
+      output.textContent = inputText;
+      output.className = selectedFont;
+
+      // Random style
+      output.style.color = getRandomColor();
+      output.style.textShadow = getRandomShadow();
+      output.style.transform = `rotate(${Math.floor(Math.random() * 16 - 8)}deg) scale(${(Math.random() * 0.4 + 0.8).toFixed(2)}) translateY(${Math.floor(Math.random() * 20 - 10)}px)`;
     }
   </script>
-
 </body>
 </html>
