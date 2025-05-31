@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Graffiti Text Generator</title>
-  <link href="https://fonts.googleapis.com/css2?family=Rubik+Spray+Paint&family=Rubik+Moonrocks&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Rubik+Spray+Paint&family=Rubik+Moonrocks&family=Freckle+Face&family=Henny+Penny&display=swap" rel="stylesheet">
   <style>
     body {
       background: #111;
@@ -23,17 +23,22 @@
       text-shadow: 2px 2px 8px #ff00ff;
     }
 
-    input {
+    .controls {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    input[type="text"], select, input[type="color"] {
       padding: 10px;
-      font-size: 1.2em;
-      width: 300px;
+      font-size: 1.1em;
       border: none;
       border-radius: 4px;
       outline: none;
     }
 
     button {
-      margin-top: 10px;
       padding: 10px 20px;
       font-size: 1.1em;
       background: #ff00ff;
@@ -51,30 +56,51 @@
     #graffitiOutput {
       margin-top: 40px;
       font-size: 3em;
-      font-family: 'Rubik Spray Paint', cursive;
-      color: #00ffcc;
-      text-shadow: 
-        2px 2px 0 #000, 
-        4px 4px 8px #ff00ff;
+      text-shadow: 2px 2px 0 #000, 4px 4px 8px #ff00ff;
       word-wrap: break-word;
       text-align: center;
       max-width: 90%;
     }
+
+    .RubikSprayPaint { font-family: 'Rubik Spray Paint', cursive; }
+    .FreckleFace { font-family: 'Freckle Face', cursive; }
+    .HennyPenny { font-family: 'Henny Penny', cursive; }
+    .RubikMoonrocks { font-family: 'Rubik Moonrocks', cursive; }
   </style>
 </head>
 <body>
 
   <h1>Graffiti Generator</h1>
-  <input type="text" id="graffitiInput" placeholder="Type your tag here..." />
-  <button onclick="generateGraffiti()">Generate</button>
 
-  <div id="graffitiOutput"></div>
+  <div class="controls">
+    <input type="text" id="graffitiInput" placeholder="Type your tag here..." />
+
+    <label for="fontSelect">Font:</label>
+    <select id="fontSelect">
+      <option value="RubikSprayPaint">Rubik Spray Paint</option>
+      <option value="FreckleFace">Freckle Face</option>
+      <option value="HennyPenny">Henny Penny</option>
+      <option value="RubikMoonrocks">Rubik Moonrocks</option>
+    </select>
+
+    <label for="colorPicker">Color:</label>
+    <input type="color" id="colorPicker" value="#00ffcc" />
+
+    <button onclick="generateGraffiti()">Generate</button>
+  </div>
+
+  <div id="graffitiOutput">💥</div>
 
   <script>
     function generateGraffiti() {
-      const input = document.getElementById('graffitiInput').value;
-      const output = document.getElementById('graffitiOutput');
-      output.textContent = input || "💥"; // Default if blank
+      const inputText = document.getElementById('graffitiInput').value || "💥";
+      const selectedFont = document.getElementById('fontSelect').value;
+      const selectedColor = document.getElementById('colorPicker').value;
+
+      const outputDiv = document.getElementById('graffitiOutput');
+      outputDiv.textContent = inputText;
+      outputDiv.className = selectedFont;
+      outputDiv.style.color = selectedColor;
     }
   </script>
 
